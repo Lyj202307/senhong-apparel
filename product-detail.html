@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SH-101 Essential Pima Tee | Senhong Apparel</title>
+  <link rel="stylesheet" href="assets/css/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <style>
+    .detail-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; padding: 120px 0 80px; }
+    @media(max-width:900px){ .detail-layout { grid-template-columns: 1fr; gap: 40px; padding: 100px 0 60px; } }
+    .gallery-main { aspect-ratio: 4/5; border-radius: 16px; overflow: hidden; background: #f1f5f9; margin-bottom: 12px; }
+    .gallery-main img { width: 100%; height: 100%; object-fit: cover; }
+    .gallery-thumbs { display: flex; gap: 10px; }
+    .gallery-thumb { width: 72px; height: 72px; border-radius: 8px; overflow: hidden; border: 2px solid var(--border); cursor: pointer; flex-shrink: 0; }
+    .gallery-thumb.active { border-color: var(--primary); }
+    .gallery-thumb img { width: 100%; height: 100%; object-fit: cover; }
+    .breadcrumb { display: flex; gap: 8px; font-size: 13px; color: var(--muted); margin-bottom: 16px; }
+    .breadcrumb a { color: var(--muted); text-decoration: none; }
+    .breadcrumb a:hover { color: var(--primary); }
+    .product-series { font-size: 11px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; color: var(--primary); margin-bottom: 8px; }
+    .detail-title { font-size: clamp(26px,3vw,40px); font-weight: 900; line-height: 1.1; margin-bottom: 16px; }
+    .price-block { background: var(--bg-light); border: 1px solid var(--border); border-radius: 12px; padding: 20px 24px; margin: 24px 0; }
+    .price-tiers { display: grid; grid-template-columns: repeat(3,1fr); gap: 0; border: 1px solid var(--border); border-radius: 10px; overflow: hidden; margin: 16px 0 8px; }
+    .price-tier { padding: 14px; text-align: center; background: #fff; border-right: 1px solid var(--border); }
+    .price-tier:last-child { border-right: none; }
+    .tier-qty { font-size: 11px; font-weight: 800; color: var(--muted); text-transform: uppercase; letter-spacing: .06em; }
+    .tier-price { font-size: 22px; font-weight: 900; color: var(--primary); line-height: 1.2; }
+    .tier-note { font-size: 10px; color: var(--muted); }
+
+    .color-swatches { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
+    .swatch { width: 28px; height: 28px; border-radius: 50%; border: 3px solid #fff; box-shadow: 0 0 0 1px var(--border); cursor: pointer; transition: transform .15s, box-shadow .15s; }
+    .swatch:hover, .swatch.active { transform: scale(1.2); box-shadow: 0 0 0 2px var(--primary); }
+
+    .size-selector { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
+    .size-btn { width: 44px; height: 44px; border: 1.5px solid var(--border); border-radius: 8px; font-size: 13px; font-weight: 700; cursor: pointer; background: #fff; transition: all .2s; }
+    .size-btn:hover { border-color: var(--dark); }
+    .size-btn.active { background: var(--dark); color: #fff; border-color: var(--dark); }
+
+    .detail-spec-table { width: 100%; border-collapse: collapse; font-size: 14px; margin-top: 24px; }
+    .detail-spec-table tr { border-bottom: 1px solid var(--border); }
+    .detail-spec-table td { padding: 12px 8px; }
+    .detail-spec-table td:first-child { font-weight: 700; color: var(--muted); width: 140px; font-size: 12px; text-transform: uppercase; letter-spacing: .04em; }
+    .spec-tag { display: inline-block; font-size: 11px; font-weight: 700; padding: 3px 8px; border-radius: 4px; background: var(--primary-light); color: #065f46; margin-right: 4px; }
+
+    .action-row { display: flex; gap: 12px; margin-top: 28px; }
+    .tabs { display: flex; gap: 0; border-bottom: 2px solid var(--border); margin-bottom: 24px; }
+    .tab-btn { padding: 12px 24px; font-size: 14px; font-weight: 700; border: none; background: none; cursor: pointer; color: var(--muted); border-bottom: 2px solid transparent; margin-bottom: -2px; transition: all .2s; }
+    .tab-btn.active { color: var(--dark); border-bottom-color: var(--dark); }
+    .tab-panel { display: none; }
+    .tab-panel.active { display: block; }
+
+    .size-chart-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+    .size-chart-table th { background: var(--dark); color: #fff; padding: 10px 14px; text-align: left; font-size: 11px; letter-spacing: .06em; text-transform: uppercase; }
+    .size-chart-table td { padding: 10px 14px; border-bottom: 1px solid var(--border); }
+    .size-chart-table tr:nth-child(even) { background: var(--bg-light); }
+
+    .related-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 20px; }
+    @media(max-width:700px){ .related-grid { grid-template-columns: repeat(2,1fr); } }
+  </style>
+</head>
+<body>
+<div id="nav-placeholder"></div>
+
+<div class="container">
+  <div class="detail-layout">
+
+    <!-- Gallery -->
+    <div class="reveal">
+      <div class="gallery-main" id="mainGallery">
+        <img src="https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&w=900&q=80" alt="SH-101 Front" id="mainImg">
+      </div>
+      <div class="gallery-thumbs">
+        <div class="gallery-thumb active" onclick="switchImg(this,'https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&w=400&q=80')">
+          <img src="https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&w=200&q=70" alt="">
+        </div>
+        <div class="gallery-thumb" onclick="switchImg(this,'https://images.unsplash.com/photo-1503341504253-dff4815485f1?auto=format&fit=crop&w=400&q=80')">
+          <img src="https://images.unsplash.com/photo-1503341504253-dff4815485f1?auto=format&fit=crop&w=200&q=70" alt="">
+        </div>
+        <div class="gallery-thumb" onclick="switchImg(this,'https://images.unsplash.com/photo-1576566588028-4147f3842f27?auto=format&fit=crop&w=400&q=80')">
+          <img src="https://images.unsplash.com/photo-1576566588028-4147f3842f27?auto=format&fit=crop&w=200&q=70" alt="">
+        </div>
+        <div class="gallery-thumb" onclick="switchImg(this,'https://images.unsplash.com/photo-1618354691373-d851c5c3a990?auto=format&fit=crop&w=400&q=80')">
+          <img src="https://images.unsplash.com/photo-1618354691373-d851c5c3a990?auto=format&fit=crop&w=200&q=70" alt="">
+        </div>
+      </div>
+    </div>
+
+    <!-- Info -->
+    <div class="reveal reveal-delay-1">
+      <div class="breadcrumb">
+        <a href="index.html">Home</a> /
+        <a href="products.html">Catalog</a> /
+        <span>SH-101</span>
+      </div>
+      <div class="product-series">Essential Series</div>
+      <h1 class="detail-title">SH-101 · Essential Pima Cotton Crew Tee</h1>
+      <p style="color:var(--muted);font-size:15px;line-height:1.7;">The benchmark blank tee for global print-on-demand, wholesale, and private label. Airlume-grade combed ring-spun cotton with pre-shrunk finish and reinforced shoulder seams.</p>
+
+      <!-- Tiered Pricing -->
+      <div class="price-block">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px;">
+          <span style="font-size:13px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;">Wholesale Price (FOB Guangzhou)</span>
+          <span style="font-size:11px;font-weight:700;color:var(--primary);">✓ Verified Factory Price</span>
+        </div>
+        <div class="price-tiers">
+          <div class="price-tier">
+            <div class="tier-qty">100–499 pcs</div>
+            <div class="tier-price">$4.50</div>
+            <div class="tier-note">/ piece</div>
+          </div>
+          <div class="price-tier" style="background:var(--primary-light);">
+            <div class="tier-qty">500–2000 pcs</div>
+            <div class="tier-price" style="color:#065f46;">$3.20</div>
+            <div class="tier-note" style="color:#047857;">Most Popular</div>
+          </div>
+          <div class="price-tier">
+            <div class="tier-qty">2000+ pcs</div>
+            <div class="tier-price">$2.50</div>
+            <div class="tier-note">/ piece</div>
+          </div>
+        </div>
+        <p style="font-size:12px;color:var(--muted);">DDP price (landed cost) available on request. Custom label & packaging from +$0.30/pc.</p>
+      </div>
+
+      <!-- Color -->
+      <div>
+        <label style="font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);">Select Color: <strong style="color:var(--dark);" id="colorName">White</strong></label>
+        <div class="color-swatches">
+          <div class="swatch active" style="background:#ffffff;" title="White" onclick="selectColor(this,'White')"></div>
+          <div class="swatch" style="background:#0a0a0a;" title="Black" onclick="selectColor(this,'Black')"></div>
+          <div class="swatch" style="background:#6b7280;" title="Ash Grey" onclick="selectColor(this,'Ash Grey')"></div>
+          <div class="swatch" style="background:#1e3a5f;" title="Navy Blue" onclick="selectColor(this,'Navy Blue')"></div>
+          <div class="swatch" style="background:#dc2626;" title="Flame Red" onclick="selectColor(this,'Flame Red')"></div>
+          <div class="swatch" style="background:#16a34a;" title="Forest Green" onclick="selectColor(this,'Forest Green')"></div>
+          <div class="swatch" style="background:#78350f;" title="Caramel Brown" onclick="selectColor(this,'Caramel Brown')"></div>
+          <div class="swatch" style="background:#7c3aed;" title="Deep Purple" onclick="selectColor(this,'Deep Purple')"></div>
+          <div class="swatch" style="background:#f59e0b;" title="Amber Yellow" onclick="selectColor(this,'Amber Yellow')"></div>
+          <div class="swatch" style="background:#0891b2;" title="Ocean Blue" onclick="selectColor(this,'Ocean Blue')"></div>
+          <span style="font-size:12px;color:var(--muted);font-weight:600;align-self:center;">+19 more</span>
+        </div>
+      </div>
+
+      <!-- Size -->
+      <div style="margin-top:20px;">
+        <div style="display:flex;justify-content:space-between;margin-bottom:8px;">
+          <label style="font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);">Size</label>
+          <a href="size-guide.html" style="font-size:12px;font-weight:700;color:var(--primary);">Size Guide →</a>
+        </div>
+        <div class="size-selector">
+          <button class="size-btn">XS</button>
+          <button class="size-btn active">S</button>
+          <button class="size-btn">M</button>
+          <button class="size-btn">L</button>
+          <button class="size-btn">XL</button>
+          <button class="size-btn">2XL</button>
+          <button class="size-btn">3XL</button>
+          <button class="size-btn">4XL</button>
+        </div>
+        <p style="font-size:12px;color:var(--muted);margin-top:8px;">Custom sizing (women's, kids, plus) available on OEM orders.</p>
+      </div>
+
+      <!-- Actions -->
+      <div class="action-row">
+        <a href="contact.html" class="btn btn-primary" style="flex:1;justify-content:center;"><i class="fas fa-paper-plane"></i> Request Quote</a>
+        <a href="#" class="btn btn-outline" style="flex-shrink:0;"><i class="fas fa-download"></i> Spec PDF</a>
+      </div>
+
+      <!-- Trust row -->
+      <div style="display:flex;gap:16px;margin-top:20px;flex-wrap:wrap;">
+        <span style="font-size:12px;color:var(--muted);"><i class="fas fa-shield-alt" style="color:var(--primary);"></i> OEKO-TEX® Certified</span>
+        <span style="font-size:12px;color:var(--muted);"><i class="fas fa-truck" style="color:var(--primary);"></i> Ships in 7–25 Days</span>
+        <span style="font-size:12px;color:var(--muted);"><i class="fas fa-undo" style="color:var(--primary);"></i> AQL 2.5 QC Guaranteed</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Tabs -->
+  <div style="padding-bottom:80px;">
+    <div class="tabs">
+      <button class="tab-btn active" onclick="switchTab(this,'specs')">Product Specs</button>
+      <button class="tab-btn" onclick="switchTab(this,'sizechart')">Size Chart</button>
+      <button class="tab-btn" onclick="switchTab(this,'printing')">Print Guide</button>
+      <button class="tab-btn" onclick="switchTab(this,'shipping')">Shipping &amp; MOQ</button>
+    </div>
+
+    <div id="specs" class="tab-panel active">
+      <table class="detail-spec-table">
+        <tr><td>Item Code</td><td><strong>SH-101</strong></td></tr>
+        <tr><td>Fabric Weight</td><td><strong>200 GSM</strong> (approx. 6.0 oz/yd²)</td></tr>
+        <tr><td>Material</td><td>100% Combed Ring-Spun Pima Cotton</td></tr>
+        <tr><td>Yarn Count</td><td>32 Singles (32S)</td></tr>
+        <tr><td>Knit Structure</td><td>Single jersey, circular knit</td></tr>
+        <tr><td>Fit</td><td>Unisex regular fit · Also available in women's slim fit (SH-101W)</td></tr>
+        <tr><td>Neck Style</td><td>1×1 rib crewneck · 3cm ribbed collar</td></tr>
+        <tr><td>Seam Type</td><td>Flatlock seamed sides (S – L) · Taped shoulder seam</td></tr>
+        <tr><td>Hem</td><td>Double-stitched bottom hem (2.5cm)</td></tr>
+        <tr><td>Shrinkage</td><td>Pre-shrunk · Max 3% wash shrinkage</td></tr>
+        <tr><td>Colors Available</td><td>29 stock colors <span class="spec-tag">+ custom dyeing from 1,000 pcs</span></td></tr>
+        <tr><td>Certifications</td><td><span class="spec-tag">OEKO-TEX® 100</span><span class="spec-tag">BSCI</span><span class="spec-tag">ISO 9001</span></td></tr>
+        <tr><td>Packaging</td><td>Individually polybag, 12 pcs / inner box, 60 pcs / master carton</td></tr>
+        <tr><td>Care</td><td>Machine wash 30°C · Do not bleach · Tumble dry low</td></tr>
+      </table>
+    </div>
+
+    <div id="sizechart" class="tab-panel">
+      <p style="font-size:14px;color:var(--muted);margin-bottom:20px;">All measurements in centimeters (±1.5 cm tolerance). Measured flat, not stretched.</p>
+      <table class="size-chart-table">
+        <thead>
+          <tr><th>Size</th><th>Chest (cm)</th><th>Body Length (cm)</th><th>Sleeve (cm)</th><th>Shoulder (cm)</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><strong>XS</strong></td><td>86 – 90</td><td>66</td><td>19</td><td>40</td></tr>
+          <tr><td><strong>S</strong></td><td>91 – 95</td><td>68</td><td>20</td><td>42</td></tr>
+          <tr><td><strong>M</strong></td><td>96 – 101</td><td>71</td><td>21</td><td>44</td></tr>
+          <tr><td><strong>L</strong></td><td>102 – 108</td><td>74</td><td>22</td><td>46</td></tr>
+          <tr><td><strong>XL</strong></td><td>109 – 116</td><td>77</td><td>23</td><td>49</td></tr>
+          <tr><td><strong>2XL</strong></td><td>117 – 124</td><td>80</td><td>24</td><td>52</td></tr>
+          <tr><td><strong>3XL</strong></td><td>125 – 132</td><td>83</td><td>25</td><td>55</td></tr>
+          <tr><td><strong>4XL</strong></td><td>133 – 142</td><td>86</td><td>26</td><td>58</td></tr>
+        </tbody>
+      </table>
+      <p style="font-size:12px;color:var(--muted);margin-top:12px;">Need a different grading? Custom size spec available on OEM orders of 500+ pcs.</p>
+    </div>
+
+    <div id="printing" class="tab-panel">
+      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:20px;">
+        <div style="border:1px solid var(--border);border-radius:10px;padding:20px;">
+          <div style="font-size:20px;margin-bottom:8px;">🖨️</div>
+          <h4 style="font-weight:800;margin-bottom:6px;">DTG (Direct to Garment)</h4>
+          <p style="font-size:13px;color:var(--muted);line-height:1.6;">Excellent results. Pre-treat with Kornit or Brother pretreatment fluid. Best on white and light colors. Wash inside-out.</p>
+        </div>
+        <div style="border:1px solid var(--border);border-radius:10px;padding:20px;">
+          <div style="font-size:20px;margin-bottom:8px;">🎨</div>
+          <h4 style="font-weight:800;margin-bottom:6px;">Screen Printing</h4>
+          <p style="font-size:13px;color:var(--muted);line-height:1.6;">Ideal for bulk orders 50+ pcs per design. Water-based and plastisol inks both supported. Maximum 8-color process.</p>
+        </div>
+        <div style="border:1px solid var(--border);border-radius:10px;padding:20px;">
+          <div style="font-size:20px;margin-bottom:8px;">🧵</div>
+          <h4 style="font-weight:800;margin-bottom:6px;">Embroidery</h4>
+          <p style="font-size:13px;color:var(--muted);line-height:1.6;">Reinforced collar and chest area. Max stitch count: 15,000. Digitizing fee applies for new designs.</p>
+        </div>
+        <div style="border:1px solid var(--border);border-radius:10px;padding:20px;">
+          <div style="font-size:20px;margin-bottom:8px;">🔥</div>
+          <h4 style="font-weight:800;margin-bottom:6px;">Heat Transfer / Sublimation</h4>
+          <p style="font-size:13px;color:var(--muted);line-height:1.6;">HTV works well. Sublimation recommended for polyester-blend versions (SH-205). Temp: 160–180°C, 15 sec dwell.</p>
+        </div>
+      </div>
+    </div>
+
+    <div id="shipping" class="tab-panel">
+      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:20px;">
+        <div style="border:1px solid var(--border);border-radius:10px;padding:24px;">
+          <h4 style="font-weight:800;margin-bottom:12px;"><i class="fas fa-box" style="color:var(--primary);margin-right:8px;"></i>MOQ</h4>
+          <p style="font-size:14px;color:var(--muted);line-height:1.7;">Minimum <strong>100 pcs per color per style</strong> for stock orders. Sample orders: from 10 pcs at sample price. Mixed colors available for orders above 500 pcs total.</p>
+        </div>
+        <div style="border:1px solid var(--border);border-radius:10px;padding:24px;">
+          <h4 style="font-weight:800;margin-bottom:12px;"><i class="fas fa-clock" style="color:var(--primary);margin-right:8px;"></i>Lead Times</h4>
+          <p style="font-size:14px;color:var(--muted);line-height:1.7;"><strong>Stock:</strong> 5–7 business days<br><strong>Custom dyeing:</strong> 18–22 days<br><strong>OEM/ODM:</strong> 25–35 days<br><strong>Rush:</strong> +15% surcharge</p>
+        </div>
+        <div style="border:1px solid var(--border);border-radius:10px;padding:24px;">
+          <h4 style="font-weight:800;margin-bottom:12px;"><i class="fas fa-ship" style="color:var(--primary);margin-right:8px;"></i>Shipping Options</h4>
+          <p style="font-size:14px;color:var(--muted);line-height:1.7;"><strong>Air Express:</strong> DHL / FedEx (3–5 days)<br><strong>Economy Air:</strong> 8–12 days<br><strong>Sea LCL:</strong> 25–35 days<br><strong>Sea FCL:</strong> On request</p>
+        </div>
+        <div style="border:1px solid var(--border);border-radius:10px;padding:24px;">
+          <h4 style="font-weight:800;margin-bottom:12px;"><i class="fas fa-credit-card" style="color:var(--primary);margin-right:8px;"></i>Payment</h4>
+          <p style="font-size:14px;color:var(--muted);line-height:1.7;">T/T · PayPal · Western Union · L/C (above $20,000)<br><br>Terms: 30% deposit · 70% before shipment</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Related Products -->
+  <div style="padding-bottom:80px;">
+    <h2 style="font-size:24px;font-weight:900;margin-bottom:32px;">Related Products</h2>
+    <div class="related-grid">
+      <a href="product-detail.html" class="product-card reveal">
+        <div class="product-thumb" style="aspect-ratio:3/4;">
+          <img src="https://images.unsplash.com/photo-1583743814966-8936f5b7be1a?auto=format&fit=crop&w=400&q=80" alt="">
+        </div>
+        <div class="product-name" style="font-size:14px;">SH-204 · Heavyweight Box Tee</div>
+        <div class="product-price" style="font-size:13px;">From $4.20</div>
+      </a>
+      <a href="product-detail.html" class="product-card reveal reveal-delay-1">
+        <div class="product-thumb" style="aspect-ratio:3/4;">
+          <img src="https://images.unsplash.com/photo-1618354691373-d851c5c3a990?auto=format&fit=crop&w=400&q=80" alt="">
+        </div>
+        <div class="product-name" style="font-size:14px;">SH-305 · Drop Shoulder Tee</div>
+        <div class="product-price" style="font-size:13px;">From $3.80</div>
+      </a>
+      <a href="product-detail.html" class="product-card reveal reveal-delay-2">
+        <div class="product-thumb" style="aspect-ratio:3/4;">
+          <img src="https://images.unsplash.com/photo-1576566588028-4147f3842f27?auto=format&fit=crop&w=400&q=80" alt="">
+        </div>
+        <div class="product-name" style="font-size:14px;">SH-102 · Slim Fit V-Neck</div>
+        <div class="product-price" style="font-size:13px;">From $2.80</div>
+      </a>
+      <a href="products.html" class="product-card reveal reveal-delay-3" style="display:flex;align-items:center;justify-content:center;background:var(--bg-light);border-radius:12px;border:1px dashed var(--border);aspect-ratio:unset;min-height:200px;text-align:center;text-decoration:none;color:var(--primary);font-weight:700;font-size:14px;gap:8px;">
+        <i class="fas fa-th-large"></i> View All Products
+      </a>
+    </div>
+  </div>
+</div>
+
+<div id="footer-placeholder"></div>
+<script>
+function switchImg(el, src) {
+  document.getElementById('mainImg').src = src;
+  document.querySelectorAll('.gallery-thumb').forEach(t => t.classList.remove('active'));
+  el.classList.add('active');
+}
+function selectColor(el, name) {
+  document.querySelectorAll('.swatch').forEach(s => s.classList.remove('active'));
+  el.classList.add('active');
+  document.getElementById('colorName').textContent = name;
+}
+function switchTab(btn, id) {
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById(id).classList.add('active');
+}
+document.querySelectorAll('.size-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.size-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+  });
+});
+</script>
+<script src="assets/js/main.js"></script>
+</body>
+</html>

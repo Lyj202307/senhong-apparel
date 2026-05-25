@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact & Inquiry | Senhong Apparel</title>
+  <link rel="stylesheet" href="assets/css/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <style>
+    .contact-layout { display: grid; grid-template-columns: 1fr 420px; gap: 80px; padding: 120px 0 80px; }
+    @media(max-width:960px){ .contact-layout { grid-template-columns: 1fr; gap: 48px; padding: 100px 0 60px; } }
+    .contact-form-card { background: #fff; border: 1px solid var(--border); border-radius: 20px; padding: 48px; box-shadow: 0 20px 60px rgba(0,0,0,.06); }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    @media(max-width:600px){ .form-row { grid-template-columns: 1fr; } }
+    .form-group { display: flex; flex-direction: column; gap: 6px; margin-bottom: 18px; }
+    .form-label { font-size: 12px; font-weight: 800; text-transform: uppercase; letter-spacing: .07em; color: var(--muted); }
+    .form-control { border: 1.5px solid var(--border); border-radius: 8px; padding: 12px 14px; font-size: 14px; font-family: inherit; outline: none; transition: border-color .2s; background: var(--bg-light); }
+    .form-control:focus { border-color: var(--primary); background: #fff; }
+    select.form-control { appearance: none; cursor: pointer; }
+    textarea.form-control { resize: vertical; min-height: 100px; }
+    .upload-area { border: 2px dashed var(--border); border-radius: 10px; padding: 24px; text-align: center; cursor: pointer; transition: border-color .2s; background: var(--bg-light); }
+    .upload-area:hover { border-color: var(--primary); }
+    .guarantee-badge { display: flex; gap: 12px; align-items: center; background: var(--primary-light); border: 1px solid #a7f3d0; border-radius: 10px; padding: 14px 18px; margin-bottom: 20px; }
+    .contact-info-card { border: 1px solid var(--border); border-radius: 16px; padding: 28px; margin-bottom: 20px; }
+    .contact-info-card h4 { font-size: 16px; font-weight: 800; margin-bottom: 16px; }
+    .contact-row { display: flex; gap: 14px; align-items: flex-start; margin-bottom: 18px; }
+    .contact-row:last-child { margin-bottom: 0; }
+    .contact-icon { width: 42px; height: 42px; border-radius: 10px; background: var(--primary-light); display: flex; align-items: center; justify-content: center; color: var(--primary); font-size: 16px; flex-shrink: 0; }
+    .contact-label { font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: .07em; color: var(--muted); margin-bottom: 4px; }
+    .contact-value { font-size: 14px; font-weight: 700; }
+    .contact-sub { font-size: 12px; color: var(--muted); margin-top: 2px; }
+    .map-placeholder { width: 100%; height: 220px; border-radius: 12px; background: var(--bg-light); border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; flex-direction: column; gap: 8px; color: var(--muted); font-size: 13px; overflow: hidden; }
+    .map-placeholder iframe { width: 100%; height: 100%; border: none; border-radius: 12px; }
+    .response-steps { display: grid; grid-template-columns: repeat(3,1fr); gap: 16px; margin-top: 48px; }
+    @media(max-width:600px){ .response-steps { grid-template-columns: 1fr; } }
+    .response-step { text-align: center; padding: 24px; background: var(--bg-light); border-radius: 12px; border: 1px solid var(--border); }
+    .step-num { width: 40px; height: 40px; border-radius: 50%; background: var(--dark); color: #fff; font-size: 16px; font-weight: 900; display: flex; align-items: center; justify-content: center; margin: 0 auto 12px; }
+    .success-msg { display: none; background: var(--primary-light); border: 1px solid #a7f3d0; border-radius: 10px; padding: 20px; text-align: center; margin-top: 16px; }
+  </style>
+</head>
+<body>
+<div id="nav-placeholder"></div>
+
+<div class="container">
+  <div class="contact-layout">
+
+    <!-- Left: Inquiry Form -->
+    <div class="reveal">
+      <div class="label">Get In Touch</div>
+      <h1 style="font-size:clamp(30px,4vw,52px);font-weight:900;line-height:1.1;margin-bottom:16px;">Request a Bulk Quote</h1>
+      <p style="color:var(--muted);font-size:16px;line-height:1.8;margin-bottom:32px;">Fill in your requirements and a dedicated account manager will respond within <strong>12 hours</strong> with a full quotation, product samples, and lead time estimate.</p>
+
+      <div class="guarantee-badge">
+        <span style="font-size:24px;">⚡</span>
+        <div>
+          <div style="font-size:13px;font-weight:800;color:#065f46;">12-Hour Response Guarantee</div>
+          <div style="font-size:12px;color:#047857;">Mon–Sat, 8AM–8PM UTC+8. WhatsApp available 24/7 for urgent inquiries.</div>
+        </div>
+      </div>
+
+      <div class="contact-form-card">
+        <form id="inquiryForm" onsubmit="handleSubmit(event)">
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">First Name *</label>
+              <input type="text" class="form-control" placeholder="John" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Last Name *</label>
+              <input type="text" class="form-control" placeholder="Smith" required>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">Company Name *</label>
+              <input type="text" class="form-control" placeholder="Acme Clothing Co." required>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Country *</label>
+              <select class="form-control" required>
+                <option value="">Select Country</option>
+                <option>United States</option>
+                <option>United Kingdom</option>
+                <option>Canada</option>
+                <option>Australia</option>
+                <option>Germany</option>
+                <option>France</option>
+                <option>Netherlands</option>
+                <option>Spain</option>
+                <option>Italy</option>
+                <option>Sweden</option>
+                <option>Brazil</option>
+                <option>UAE</option>
+                <option>Other</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">Business Email *</label>
+              <input type="email" class="form-control" placeholder="john@acmeclothing.com" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label">WhatsApp / Phone</label>
+              <input type="tel" class="form-control" placeholder="+1 555 000 0000">
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">Product Interest *</label>
+              <select class="form-control" required>
+                <option value="">Select a product type</option>
+                <option>SH-101 Essential Crew Tee</option>
+                <option>SH-204 Heavyweight Box Tee</option>
+                <option>SH-305 Oversized Drop Shoulder</option>
+                <option>Organic Cotton Line</option>
+                <option>OEM / Custom Development</option>
+                <option>Multiple Products / Full Catalog</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Estimated Annual Volume *</label>
+              <select class="form-control" required>
+                <option value="">Select quantity range</option>
+                <option>Under 1,000 pcs</option>
+                <option>1,000 – 5,000 pcs</option>
+                <option>5,000 – 20,000 pcs</option>
+                <option>20,000 – 100,000 pcs</option>
+                <option>100,000+ pcs</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Target Price (FOB, per piece)</label>
+            <select class="form-control">
+              <option value="">No preference</option>
+              <option>Under $3.00</option>
+              <option>$3.00 – $5.00</option>
+              <option>$5.00 – $8.00</option>
+              <option>$8.00+</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Message / Special Requirements</label>
+            <textarea class="form-control" placeholder="Please describe your requirements — colors, GSM, label type, printing needs, delivery destination, Incoterms, etc."></textarea>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Attach Design File (Optional)</label>
+            <div class="upload-area" onclick="document.getElementById('fileInput').click()">
+              <i class="fas fa-cloud-upload-alt" style="font-size:24px;color:var(--muted);margin-bottom:8px;display:block;"></i>
+              <span style="font-size:14px;font-weight:600;">Click to upload AI / PDF / PNG / JPG</span>
+              <span style="font-size:12px;color:var(--muted);display:block;margin-top:4px;">Max 20MB per file</span>
+            </div>
+            <input type="file" id="fileInput" accept=".ai,.pdf,.png,.jpg,.jpeg" style="display:none;" multiple>
+          </div>
+          <button type="submit" class="btn btn-primary" style="width:100%;justify-content:center;font-size:16px;padding:16px;">
+            <i class="fas fa-paper-plane"></i> Send Inquiry
+          </button>
+          <p style="font-size:11px;color:var(--muted);text-align:center;margin-top:12px;">We never share your details. Read our <a href="#" style="color:var(--primary);">Privacy Policy</a>.</p>
+        </form>
+        <div class="success-msg" id="successMsg">
+          <div style="font-size:28px;margin-bottom:8px;">✅</div>
+          <h4 style="font-weight:800;margin-bottom:6px;">Inquiry Received!</h4>
+          <p style="font-size:14px;color:var(--muted);">Our team will respond within 12 hours with pricing and samples. Check your email (including spam folder).</p>
+        </div>
+      </div>
+
+      <!-- What Happens Next -->
+      <h3 style="font-size:18px;font-weight:900;margin:40px 0 16px;">What Happens After You Submit</h3>
+      <div class="response-steps">
+        <div class="response-step">
+          <div class="step-num">1</div>
+          <h4 style="font-weight:800;font-size:14px;margin-bottom:6px;">Quote Sent (≤12 hrs)</h4>
+          <p style="font-size:12px;color:var(--muted);">Your dedicated account manager sends a full quotation with tiered pricing.</p>
+        </div>
+        <div class="response-step">
+          <div class="step-num">2</div>
+          <h4 style="font-weight:800;font-size:14px;margin-bottom:6px;">Free Samples (optional)</h4>
+          <p style="font-size:12px;color:var(--muted);">Request physical fabric and product samples. Courier cost covered for orders above 500 pcs.</p>
+        </div>
+        <div class="response-step">
+          <div class="step-num">3</div>
+          <h4 style="font-weight:800;font-size:14px;margin-bottom:6px;">Order Confirmed</h4>
+          <p style="font-size:12px;color:var(--muted);">30% deposit, production starts. Real-time updates via WhatsApp or email.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right: Contact Info -->
+    <aside class="reveal reveal-delay-1">
+      <div class="contact-info-card">
+        <h4>Contact Information</h4>
+        <div class="contact-row">
+          <div class="contact-icon"><i class="fas fa-envelope"></i></div>
+          <div>
+            <div class="contact-label">Email</div>
+            <div class="contact-value">sales@senhong-apparel.com</div>
+            <div class="contact-sub">For general & wholesale inquiries</div>
+          </div>
+        </div>
+        <div class="contact-row">
+          <div class="contact-icon"><i class="fab fa-whatsapp" style="font-size:18px;"></i></div>
+          <div>
+            <div class="contact-label">WhatsApp</div>
+            <div class="contact-value">+86 139 0000 0000</div>
+            <div class="contact-sub">Available 7 days · Fast replies</div>
+          </div>
+        </div>
+        <div class="contact-row">
+          <div class="contact-icon"><i class="fas fa-map-marker-alt"></i></div>
+          <div>
+            <div class="contact-label">Factory Address</div>
+            <div class="contact-value">No. 88, Xinhua Industrial Park</div>
+            <div class="contact-sub">Baiyun District, Guangzhou, China</div>
+          </div>
+        </div>
+        <div class="contact-row">
+          <div class="contact-icon"><i class="fas fa-clock"></i></div>
+          <div>
+            <div class="contact-label">Business Hours</div>
+            <div class="contact-value">Mon – Sat, 8:30 AM – 6:30 PM</div>
+            <div class="contact-sub">GMT+8 (China Standard Time)</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- LinkedIn / WeChat -->
+      <div class="contact-info-card">
+        <h4>Other Ways to Connect</h4>
+        <div style="display:flex;flex-direction:column;gap:14px;">
+          <a href="#" style="display:flex;gap:14px;align-items:center;text-decoration:none;color:var(--text);">
+            <div class="contact-icon" style="background:#e7f0ff;color:#0a66c2;"><i class="fab fa-linkedin-in" style="font-size:18px;"></i></div>
+            <div>
+              <div style="font-size:13px;font-weight:700;">LinkedIn</div>
+              <div style="font-size:12px;color:var(--muted);">Senhong Apparel · Company Page</div>
+            </div>
+          </a>
+          <div style="display:flex;gap:14px;align-items:center;">
+            <div class="contact-icon" style="background:#e7f7ed;color:#07c160;"><i class="fab fa-weixin" style="font-size:18px;"></i></div>
+            <div>
+              <div style="font-size:13px;font-weight:700;">WeChat</div>
+              <div style="font-size:12px;color:var(--muted);">ID: senhong_apparel · Scan QR</div>
+            </div>
+          </div>
+          <a href="https://alibaba.com" target="_blank" style="display:flex;gap:14px;align-items:center;text-decoration:none;color:var(--text);">
+            <div class="contact-icon" style="background:#fff3e0;color:#ff6900;font-weight:900;font-size:13px;">ALI</div>
+            <div>
+              <div style="font-size:13px;font-weight:700;">Alibaba.com</div>
+              <div style="font-size:12px;color:var(--muted);">Verified Gold Supplier · Trade Assurance</div>
+            </div>
+          </a>
+        </div>
+      </div>
+
+      <!-- Map -->
+      <div class="contact-info-card">
+        <h4>Our Location</h4>
+        <div class="map-placeholder">
+          <i class="fas fa-map-marker-alt" style="font-size:32px;color:var(--primary);"></i>
+          <span>Baiyun District, Guangzhou, China</span>
+          <span style="font-size:11px;">Map loads on page (Google Maps embed)</span>
+        </div>
+        <a href="https://maps.google.com" target="_blank" style="display:block;text-align:center;font-size:13px;font-weight:700;color:var(--primary);margin-top:12px;"><i class="fas fa-external-link-alt"></i> Open in Google Maps</a>
+      </div>
+
+      <!-- Trust -->
+      <div style="background:var(--dark);border-radius:16px;padding:24px;text-align:center;">
+        <h4 style="color:#fff;font-weight:900;margin-bottom:8px;">Trusted by 150+ Brands</h4>
+        <p style="font-size:13px;color:rgba(255,255,255,.6);line-height:1.7;margin-bottom:16px;">From startups to Fortune 500 brands. All inquiries are responded to. No minimum relationship required to get a quote.</p>
+        <div style="display:flex;justify-content:center;gap:16px;flex-wrap:wrap;">
+          <span style="font-size:12px;color:rgba(255,255,255,.5);"><i class="fas fa-shield-alt" style="color:#4ade80;margin-right:4px;"></i>OEKO-TEX®</span>
+          <span style="font-size:12px;color:rgba(255,255,255,.5);"><i class="fas fa-certificate" style="color:#4ade80;margin-right:4px;"></i>ISO 9001</span>
+          <span style="font-size:12px;color:rgba(255,255,255,.5);"><i class="fas fa-check-circle" style="color:#4ade80;margin-right:4px;"></i>BSCI</span>
+        </div>
+      </div>
+    </aside>
+  </div>
+</div>
+
+<!-- Alternative Inquiry Banner -->
+<div style="background:var(--bg-light);border-top:1px solid var(--border);padding:60px 0;">
+  <div class="container" style="text-align:center;">
+    <h3 style="font-size:22px;font-weight:900;margin-bottom:12px;">Prefer Email? Send Directly.</h3>
+    <p style="color:var(--muted);font-size:15px;margin-bottom:24px;">Not ready to fill a form? Email us directly with your product request — we'll quote back within 12 hours.</p>
+    <a href="mailto:sales@senhong-apparel.com?subject=Wholesale%20Inquiry&body=Hi%20Senhong%20team%2C%0A%0AI'm%20interested%20in%20a%20quote%20for%3A%0A-%20Product%3A%0A-%20Quantity%3A%0A-%20Colors%3A%0A-%20Destination%3A%0A%0AThank%20you." class="btn btn-primary"><i class="fas fa-envelope"></i> Email Us Directly</a>
+  </div>
+</div>
+
+<div id="footer-placeholder"></div>
+<script>
+function handleSubmit(e) {
+  e.preventDefault();
+  document.getElementById('inquiryForm').style.display = 'none';
+  document.getElementById('successMsg').style.display = 'block';
+}
+</script>
+<script src="assets/js/main.js"></script>
+</body>
+</html>

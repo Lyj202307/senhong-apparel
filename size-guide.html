@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Size Guide | Senhong Apparel</title>
+  <link rel="stylesheet" href="assets/css/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <style>
+    .page-header { background: var(--dark); color: #fff; padding: 140px 0 80px; }
+    .size-content { padding: 80px 0; }
+    .size-nav-tabs { display: flex; gap: 0; border: 1px solid var(--border); border-radius: 10px; overflow: hidden; display: inline-flex; margin-bottom: 40px; }
+    .size-tab { padding: 12px 24px; font-size: 13px; font-weight: 700; cursor: pointer; border: none; background: #fff; transition: all .2s; color: var(--muted); }
+    .size-tab.active { background: var(--dark); color: #fff; }
+    .size-panel { display: none; }
+    .size-panel.active { display: block; }
+    .size-table { width: 100%; border-collapse: collapse; font-size: 14px; }
+    .size-table th { background: var(--dark); color: #fff; padding: 12px 16px; text-align: center; font-size: 12px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; }
+    .size-table th:first-child { text-align: left; }
+    .size-table td { padding: 13px 16px; border-bottom: 1px solid var(--border); text-align: center; font-size: 14px; }
+    .size-table td:first-child { font-weight: 800; text-align: left; }
+    .size-table tr:nth-child(even) td { background: var(--bg-light); }
+    .size-table .highlight-col { background: #f0fdf4 !important; }
+    .measure-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px,1fr)); gap: 20px; margin: 40px 0; }
+    .measure-card { border: 1px solid var(--border); border-radius: 12px; padding: 20px; }
+    .measure-icon { font-size: 28px; margin-bottom: 10px; }
+    .measure-card h4 { font-weight: 800; font-size: 14px; margin-bottom: 4px; }
+    .measure-card p { font-size: 12px; color: var(--muted); line-height: 1.6; }
+    .fit-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 20px; margin-top: 20px; }
+    @media(max-width:600px){ .fit-grid { grid-template-columns: 1fr; } }
+    .fit-card { border: 1px solid var(--border); border-radius: 14px; padding: 24px; text-align: center; }
+    .fit-diagram { width: 80px; height: 100px; margin: 0 auto 16px; background: var(--bg-light); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 36px; }
+    .conversion-table { display: grid; grid-template-columns: repeat(4,1fr); gap: 0; border: 1px solid var(--border); border-radius: 10px; overflow: hidden; }
+    .conv-header { background: var(--dark); color: #fff; padding: 10px; text-align: center; font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: .06em; }
+    .conv-cell { padding: 10px; text-align: center; font-size: 13px; border-top: 1px solid var(--border); }
+    .conv-cell:not(:last-child) { border-right: 1px solid var(--border); }
+    .conv-row-group { display: contents; }
+  </style>
+</head>
+<body>
+<div id="nav-placeholder"></div>
+
+<div class="page-header">
+  <div class="container">
+    <div style="display:flex;gap:8px;font-size:13px;color:rgba(255,255,255,.4);margin-bottom:20px;">
+      <a href="index.html" style="color:rgba(255,255,255,.4);text-decoration:none;">Home</a>
+      <span>/</span><span>Size Guide</span>
+    </div>
+    <h1 style="font-size:clamp(36px,5vw,64px);font-weight:900;margin-bottom:16px;">Size Guide</h1>
+    <p style="color:rgba(255,255,255,.6);font-size:17px;max-width:520px;line-height:1.7;">All measurements in centimeters unless stated. Garments are measured flat. Expect ±1.5cm production tolerance.</p>
+  </div>
+</div>
+
+<div class="size-content">
+  <div class="container">
+
+    <!-- How to Measure -->
+    <div class="reveal">
+      <div class="label">Instructions</div>
+      <h2 class="section-title" style="font-size:clamp(24px,3vw,36px);margin-bottom:8px;">How to Measure Your Garment</h2>
+      <p style="color:var(--muted);font-size:15px;margin-bottom:32px;">All sizes refer to garment measurements (not body measurements). For the best fit, compare against a garment you already own.</p>
+      <div class="measure-grid">
+        <div class="measure-card">
+          <div class="measure-icon">📏</div>
+          <h4>Chest Width</h4>
+          <p>Measure flat across the front, 1 inch below the armhole seam. Multiply by 2 for the full circumference.</p>
+        </div>
+        <div class="measure-card">
+          <div class="measure-icon">📐</div>
+          <h4>Body Length</h4>
+          <p>From the highest point of the shoulder at the neck seam, straight down to the bottom hem.</p>
+        </div>
+        <div class="measure-card">
+          <div class="measure-icon">✂️</div>
+          <h4>Sleeve Length</h4>
+          <p>From the top of the shoulder seam to the end of the sleeve opening, measured flat along the top of the sleeve.</p>
+        </div>
+        <div class="measure-card">
+          <div class="measure-icon">🧵</div>
+          <h4>Shoulder Width</h4>
+          <p>From the left shoulder seam to the right shoulder seam, measured straight across the back, flat.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Size Tables by Product -->
+    <div class="reveal">
+      <h3 style="font-size:20px;font-weight:900;margin-bottom:16px;">Size Chart by Product Series</h3>
+      <div class="size-nav-tabs">
+        <button class="size-tab active" onclick="showPanel(this,'essential')">Essential (SH-1XX)</button>
+        <button class="size-tab" onclick="showPanel(this,'heavyweight')">Heavyweight (SH-2XX)</button>
+        <button class="size-tab" onclick="showPanel(this,'oversized')">Oversized (SH-3XX)</button>
+        <button class="size-tab" onclick="showPanel(this,'organic')">Organic (SH-4XX)</button>
+      </div>
+
+      <div id="essential" class="size-panel active">
+        <p style="font-size:13px;color:var(--muted);margin-bottom:16px;"><strong>SH-101 / SH-102 / SH-103</strong> — Regular unisex fit. Measurements in cm.</p>
+        <div style="overflow-x:auto;">
+          <table class="size-table">
+            <thead>
+              <tr>
+                <th>Size</th>
+                <th>US Size</th>
+                <th>EU Size</th>
+                <th>Chest (cm)</th>
+                <th>Body Length (cm)</th>
+                <th>Sleeve (cm)</th>
+                <th>Shoulder (cm)</th>
+                <th>Neck Rib (cm)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td>XS</td><td>XS</td><td>34</td><td>86–90</td><td>66</td><td>19</td><td>40</td><td>15</td></tr>
+              <tr><td>S</td><td>S</td><td>36</td><td>91–95</td><td>68</td><td>20</td><td>42</td><td>16</td></tr>
+              <tr><td>M</td><td>M</td><td>38</td><td>96–101</td><td>71</td><td>21</td><td>44</td><td>17</td></tr>
+              <tr><td>L</td><td>L</td><td>40</td><td>102–108</td><td>74</td><td>22</td><td>46</td><td>18</td></tr>
+              <tr><td>XL</td><td>XL</td><td>42</td><td>109–116</td><td>77</td><td>23</td><td>49</td><td>19</td></tr>
+              <tr><td>2XL</td><td>XXL</td><td>44</td><td>117–124</td><td>80</td><td>24</td><td>52</td><td>20</td></tr>
+              <tr><td>3XL</td><td>XXXL</td><td>46</td><td>125–132</td><td>83</td><td>25</td><td>55</td><td>21</td></tr>
+              <tr><td>4XL</td><td>XXXXL</td><td>48</td><td>133–142</td><td>86</td><td>26</td><td>58</td><td>22</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div id="heavyweight" class="size-panel">
+        <p style="font-size:13px;color:var(--muted);margin-bottom:16px;"><strong>SH-204 / SH-205 / SH-206</strong> — Boxy/relaxed fit. Runs slightly larger than Essential series. Measurements in cm.</p>
+        <div style="overflow-x:auto;">
+          <table class="size-table">
+            <thead>
+              <tr>
+                <th>Size</th>
+                <th>US Size</th>
+                <th>EU Size</th>
+                <th>Chest (cm)</th>
+                <th>Body Length (cm)</th>
+                <th>Sleeve (cm)</th>
+                <th>Shoulder (cm)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td>XS</td><td>XS</td><td>34</td><td>90–96</td><td>64</td><td>20</td><td>44</td></tr>
+              <tr><td>S</td><td>S</td><td>36</td><td>97–103</td><td>67</td><td>21</td><td>46</td></tr>
+              <tr><td>M</td><td>M</td><td>38</td><td>104–111</td><td>70</td><td>22</td><td>48</td></tr>
+              <tr><td>L</td><td>L</td><td>40</td><td>112–119</td><td>73</td><td>23</td><td>51</td></tr>
+              <tr><td>XL</td><td>XL</td><td>42</td><td>120–127</td><td>76</td><td>24</td><td>54</td></tr>
+              <tr><td>2XL</td><td>XXL</td><td>44</td><td>128–136</td><td>79</td><td>25</td><td>57</td></tr>
+              <tr><td>3XL</td><td>XXXL</td><td>46</td><td>137–145</td><td>82</td><td>26</td><td>60</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div id="oversized" class="size-panel">
+        <p style="font-size:13px;color:var(--muted);margin-bottom:16px;"><strong>SH-305 / SH-306 / SH-307</strong> — Oversized / drop-shoulder silhouette. Intentionally generous dimensions. Measurements in cm.</p>
+        <div style="overflow-x:auto;">
+          <table class="size-table">
+            <thead>
+              <tr>
+                <th>Size</th>
+                <th>Chest (cm)</th>
+                <th>Body Length (cm)</th>
+                <th>Sleeve (cm)</th>
+                <th>Shoulder Drop (cm)</th>
+                <th>Recommended Body Size</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td>S</td><td>106–112</td><td>70</td><td>24</td><td>4</td><td>XS – S body</td></tr>
+              <tr><td>M</td><td>113–120</td><td>74</td><td>25</td><td>5</td><td>S – M body</td></tr>
+              <tr><td>L</td><td>121–130</td><td>78</td><td>26</td><td>5</td><td>M – L body</td></tr>
+              <tr><td>XL</td><td>131–142</td><td>82</td><td>27</td><td>6</td><td>L – XL body</td></tr>
+              <tr><td>2XL</td><td>143–154</td><td>86</td><td>28</td><td>6</td><td>XL – 2XL body</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div style="background:#fefce8;border:1px solid #fde68a;border-radius:8px;padding:14px 18px;margin-top:16px;font-size:13px;color:#92400e;">
+          <strong>Sizing Note:</strong> Oversized garments are designed to be worn 2–3 sizes above your regular fit. For a classic streetwear look, size down by one from the recommended body size.
+        </div>
+      </div>
+
+      <div id="organic" class="size-panel">
+        <p style="font-size:13px;color:var(--muted);margin-bottom:16px;"><strong>SH-401 / SH-402 / SH-403</strong> — Organic Cotton line. Standard regular fit, same as Essential series. Measurements in cm.</p>
+        <div style="overflow-x:auto;">
+          <table class="size-table">
+            <thead>
+              <tr>
+                <th>Size</th>
+                <th>US / EU</th>
+                <th>Chest (cm)</th>
+                <th>Body Length (cm)</th>
+                <th>Sleeve (cm)</th>
+                <th>Shoulder (cm)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td>XS</td><td>XS / 34</td><td>86–90</td><td>65</td><td>19</td><td>40</td></tr>
+              <tr><td>S</td><td>S / 36</td><td>91–95</td><td>68</td><td>20</td><td>42</td></tr>
+              <tr><td>M</td><td>M / 38</td><td>96–101</td><td>71</td><td>21</td><td>44</td></tr>
+              <tr><td>L</td><td>L / 40</td><td>102–108</td><td>74</td><td>22</td><td>46</td></tr>
+              <tr><td>XL</td><td>XL / 42</td><td>109–116</td><td>77</td><td>23</td><td>49</td></tr>
+              <tr><td>2XL</td><td>XXL / 44</td><td>117–124</td><td>80</td><td>24</td><td>52</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div style="background:#f0fdf4;border:1px solid #a7f3d0;border-radius:8px;padding:14px 18px;margin-top:16px;font-size:13px;color:#065f46;">
+          <strong>Shrinkage Note:</strong> Organic cotton may shrink up to 3–5% after first wash at 40°C. Garments are pre-washed but we recommend sizing up if the buyer expects immediate retail use.
+        </div>
+      </div>
+    </div>
+
+    <!-- International Conversion -->
+    <div class="reveal" style="margin-top:64px;">
+      <div class="label">International Sizing</div>
+      <h2 class="section-title" style="font-size:clamp(22px,3vw,32px);margin-bottom:24px;">US / EU / UK / Asian Size Conversion</h2>
+      <div style="overflow-x:auto;">
+        <table class="size-table">
+          <thead>
+            <tr>
+              <th>Senhong Size</th>
+              <th>US</th>
+              <th>EU</th>
+              <th>UK</th>
+              <th>AU</th>
+              <th>JP (Japanese)</th>
+              <th>KR (Korean)</th>
+              <th>CN (Chinese)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>XS</td><td>XS</td><td>34–36</td><td>6–8</td><td>6–8</td><td>S (165/88A)</td><td>XS / 85</td><td>160/84A</td></tr>
+            <tr><td>S</td><td>S</td><td>36–38</td><td>8–10</td><td>8–10</td><td>M (170/92A)</td><td>S / 90</td><td>165/88A</td></tr>
+            <tr><td>M</td><td>M</td><td>38–40</td><td>10–12</td><td>10–12</td><td>L (175/96A)</td><td>M / 95</td><td>170/92A</td></tr>
+            <tr><td>L</td><td>L</td><td>40–42</td><td>12–14</td><td>12–14</td><td>XL (180/100A)</td><td>L / 100</td><td>175/96A</td></tr>
+            <tr><td>XL</td><td>XL</td><td>42–44</td><td>14–16</td><td>14–16</td><td>2XL</td><td>XL / 105</td><td>180/100A</td></tr>
+            <tr><td>2XL</td><td>XXL</td><td>44–46</td><td>16–18</td><td>16–18</td><td>3XL</td><td>2XL / 110</td><td>185/104A</td></tr>
+            <tr><td>3XL</td><td>XXXL</td><td>46–48</td><td>18–20</td><td>18–20</td><td>4XL</td><td>3XL / 115</td><td>190/108B</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p style="font-size:12px;color:var(--muted);margin-top:12px;">* International size equivalents are approximate. Always compare against actual garment measurements for wholesale accuracy.</p>
+    </div>
+
+    <!-- Fit Guide -->
+    <div class="reveal" style="margin-top:64px;margin-bottom:48px;">
+      <div class="label">Fit Reference</div>
+      <h2 class="section-title" style="font-size:clamp(22px,3vw,32px);margin-bottom:8px;">Fit Type Guide</h2>
+      <p style="color:var(--muted);font-size:15px;margin-bottom:24px;">Understanding how our different series are designed to fit.</p>
+      <div class="fit-grid">
+        <div class="fit-card">
+          <div class="fit-diagram">👔</div>
+          <h4 style="font-weight:900;margin-bottom:8px;">Regular / Essential</h4>
+          <p style="font-size:13px;color:var(--muted);line-height:1.7;">Classic straight silhouette. True-to-size. Chest with some ease. Suitable for most body types and print-ready applications.</p>
+          <div style="margin-top:12px;font-size:12px;font-weight:700;color:var(--primary);">SH-101 / SH-102 / SH-403</div>
+        </div>
+        <div class="fit-card">
+          <div class="fit-diagram">🧥</div>
+          <h4 style="font-weight:900;margin-bottom:8px;">Boxy / Heavyweight</h4>
+          <p style="font-size:13px;color:var(--muted);line-height:1.7;">Wider chest, shorter length relative to width. Relaxed through the body. Runs one size bigger than essential — size down for a standard fit.</p>
+          <div style="margin-top:12px;font-size:12px;font-weight:700;color:var(--primary);">SH-204 / SH-205 / SH-206</div>
+        </div>
+        <div class="fit-card">
+          <div class="fit-diagram">🫧</div>
+          <h4 style="font-weight:900;margin-bottom:8px;">Oversized / Drop-Shoulder</h4>
+          <p style="font-size:13px;color:var(--muted);line-height:1.7;">Intentionally oversized with extended shoulder seam drop. Designed to be worn as a fashion statement. Size down 1–2 sizes for a more standard look.</p>
+          <div style="margin-top:12px;font-size:12px;font-weight:700;color:var(--primary);">SH-305 / SH-306 / SH-307</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CTA -->
+    <div style="background:var(--dark);border-radius:16px;padding:48px;text-align:center;" class="reveal">
+      <h3 style="color:#fff;font-size:22px;font-weight:900;margin-bottom:10px;">Still unsure about sizing?</h3>
+      <p style="color:rgba(255,255,255,.65);font-size:15px;margin-bottom:24px;">Request free samples and compare against your target garment before placing a bulk order.</p>
+      <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;">
+        <a href="contact.html" class="btn btn-primary"><i class="fas fa-paper-plane"></i> Request Free Sample</a>
+        <a href="products.html" class="btn btn-outline" style="color:#fff;border-color:rgba(255,255,255,.3);">Browse All Products</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="footer-placeholder"></div>
+<script>
+function showPanel(btn, id) {
+  document.querySelectorAll('.size-tab').forEach(b => b.classList.remove('active'));
+  document.querySelectorAll('.size-panel').forEach(p => p.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById(id).classList.add('active');
+}
+</script>
+<script src="assets/js/main.js"></script>
+</body>
+</html>
