@@ -21,9 +21,9 @@
     .sidebar h3 { font-size: 11px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); margin-bottom: 16px; margin-top: 32px; }
     .sidebar h3:first-child { margin-top: 0; }
     .filter-list { list-style: none; display: flex; flex-direction: column; gap: 8px; }
-    .filter-list li a { font-size: 14px; font-weight: 500; color: var(--text); text-decoration: none; display: flex; justify-content: space-between; padding: 4px 0; transition: color .2s; cursor: pointer; }
-    .filter-list li a:hover, .filter-list li a.active { color: var(--primary); font-weight: 700; }
-    .filter-list li a span { color: var(--muted); font-weight: 400; }
+    .filter-list li button { font-size: 14px; font-weight: 500; color: var(--text); background: none; border: none; width: 100%; text-align: left; display: flex; justify-content: space-between; padding: 4px 0; transition: color .2s; cursor: pointer; font-family: inherit; }
+    .filter-list li button:hover, .filter-list li button.active { color: var(--primary); font-weight: 700; }
+    .filter-list li button span { color: var(--muted); font-weight: 400; }
 
     .catalog-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 32px; flex-wrap: wrap; gap: 12px; }
     .catalog-count { font-size: 14px; color: var(--muted); }
@@ -72,28 +72,28 @@
     <!-- Sidebar Filters -->
     <aside class="sidebar">
       <h3>Series</h3>
-      <ul class="filter-list" id="seriesFilters">
-        <li><a class="active" data-filter="series" data-value="all" onclick="applyFilter(this)">All Products <span id="count-all">9</span></a></li>
-        <li><a data-filter="series" data-value="essential" onclick="applyFilter(this)">Essential Series <span>3</span></a></li>
-        <li><a data-filter="series" data-value="heavyweight" onclick="applyFilter(this)">Heavyweight Series <span>3</span></a></li>
-        <li><a data-filter="series" data-value="oversized" onclick="applyFilter(this)">Oversized / Streetwear <span>3</span></a></li>
+      <ul class="filter-list">
+        <li><button class="active" data-filter="series" data-value="all" onclick="applyFilter(this)">All Products <span>9</span></button></li>
+        <li><button data-filter="series" data-value="essential" onclick="applyFilter(this)">Essential Series <span>3</span></button></li>
+        <li><button data-filter="series" data-value="heavyweight" onclick="applyFilter(this)">Heavyweight Series <span>3</span></button></li>
+        <li><button data-filter="series" data-value="oversized" onclick="applyFilter(this)">Oversized / Streetwear <span>3</span></button></li>
       </ul>
 
       <h3>Fabric Weight</h3>
       <ul class="filter-list">
-        <li><a data-filter="gsm" data-value="all" onclick="applyFilter(this)">All Weights <span>9</span></a></li>
-        <li><a data-filter="gsm" data-value="under200" onclick="applyFilter(this)">Under 200 GSM <span>1</span></a></li>
-        <li><a data-filter="gsm" data-value="200-280" onclick="applyFilter(this)">200 – 280 GSM <span>4</span></a></li>
-        <li><a data-filter="gsm" data-value="280-320" onclick="applyFilter(this)">280 – 320 GSM <span>3</span></a></li>
-        <li><a data-filter="gsm" data-value="320plus" onclick="applyFilter(this)">320 GSM + <span>1</span></a></li>
+        <li><button class="active" data-filter="gsm" data-value="all" onclick="applyFilter(this)">All Weights <span>9</span></button></li>
+        <li><button data-filter="gsm" data-value="under200" onclick="applyFilter(this)">Under 200 GSM <span>1</span></button></li>
+        <li><button data-filter="gsm" data-value="200-280" onclick="applyFilter(this)">200 – 280 GSM <span>4</span></button></li>
+        <li><button data-filter="gsm" data-value="280-320" onclick="applyFilter(this)">280 – 320 GSM <span>3</span></button></li>
+        <li><button data-filter="gsm" data-value="320plus" onclick="applyFilter(this)">320 GSM+ <span>1</span></button></li>
       </ul>
 
       <h3>Material</h3>
       <ul class="filter-list">
-        <li><a data-filter="material" data-value="all" onclick="applyFilter(this)">All Materials <span>9</span></a></li>
-        <li><a data-filter="material" data-value="cotton" onclick="applyFilter(this)">100% Cotton <span>7</span></a></li>
-        <li><a data-filter="material" data-value="blend" onclick="applyFilter(this)">Cotton / Polyester <span>1</span></a></li>
-        <li><a data-filter="material" data-value="double" onclick="applyFilter(this)">Double Fabric <span>1</span></a></li>
+        <li><button class="active" data-filter="material" data-value="all" onclick="applyFilter(this)">All Materials <span>9</span></button></li>
+        <li><button data-filter="material" data-value="cotton" onclick="applyFilter(this)">100% Cotton <span>7</span></button></li>
+        <li><button data-filter="material" data-value="blend" onclick="applyFilter(this)">Cotton / Polyester <span>1</span></button></li>
+        <li><button data-filter="material" data-value="double" onclick="applyFilter(this)">Double Fabric <span>1</span></button></li>
       </ul>
 
       <div style="margin-top:32px;padding:20px;background:var(--primary-light);border-radius:12px;border:1px solid #a7f3d0;">
