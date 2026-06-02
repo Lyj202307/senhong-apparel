@@ -21,7 +21,7 @@
     .sidebar h3 { font-size: 11px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); margin-bottom: 16px; margin-top: 32px; }
     .sidebar h3:first-child { margin-top: 0; }
     .filter-list { list-style: none; display: flex; flex-direction: column; gap: 8px; }
-    .filter-list li a { font-size: 14px; font-weight: 500; color: var(--text); text-decoration: none; display: flex; justify-content: space-between; padding: 4px 0; transition: color .2s; }
+    .filter-list li a { font-size: 14px; font-weight: 500; color: var(--text); text-decoration: none; display: flex; justify-content: space-between; padding: 4px 0; transition: color .2s; cursor: pointer; }
     .filter-list li a:hover, .filter-list li a.active { color: var(--primary); font-weight: 700; }
     .filter-list li a span { color: var(--muted); font-weight: 400; }
 
@@ -29,17 +29,30 @@
     .catalog-count { font-size: 14px; color: var(--muted); }
     .sort-select { border: 1px solid var(--border); border-radius: 6px; padding: 8px 12px; font-size: 14px; font-family: inherit; outline: none; cursor: pointer; }
 
-    .catalog-tabs { display: flex; gap: 8px; margin-bottom: 40px; flex-wrap: wrap; }
-    .catalog-tab { padding: 8px 20px; border: 1px solid var(--border); border-radius: 50px; font-size: 13px; font-weight: 700; cursor: pointer; text-decoration: none; color: var(--text); transition: all .2s; }
+    .catalog-tabs { display: flex; gap: 8px; margin-bottom: 28px; flex-wrap: wrap; }
+    .catalog-tab { padding: 8px 20px; border: 1px solid var(--border); border-radius: 50px; font-size: 13px; font-weight: 700; cursor: pointer; color: var(--text); transition: all .2s; background: #fff; }
     .catalog-tab:hover, .catalog-tab.active { background: var(--dark); color: #fff; border-color: var(--dark); }
 
     .catalog-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; }
     @media(max-width:700px){ .catalog-grid { grid-template-columns: repeat(2,1fr); } }
 
-    .product-meta { font-size: 12px; color: var(--muted); margin-top: 4px; }
     .product-specs-pills { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 8px; }
     .spec-pill { font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 4px; background: var(--bg-light); border: 1px solid var(--border); color: var(--muted); }
     .spec-pill.green { background: var(--primary-light); border-color: #a7f3d0; color: #065f46; }
+
+    .section-label { font-size: 20px; font-weight: 900; margin-bottom: 20px; padding-top: 8px; }
+    .section-block { margin-bottom: 52px; }
+    .section-block.hidden { display: none; }
+
+    .product-card.hidden { display: none; }
+
+    .empty-state { display: none; text-align: center; padding: 80px 20px; color: var(--muted); }
+    .empty-state i { font-size: 48px; margin-bottom: 16px; opacity: .3; display: block; }
+    .empty-state.visible { display: block; }
+
+    .active-filters { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 20px; min-height: 0; }
+    .filter-tag { display: flex; align-items: center; gap: 6px; font-size: 12px; font-weight: 700; padding: 4px 10px; background: var(--primary-light); border: 1px solid #a7f3d0; border-radius: 20px; color: #065f46; }
+    .filter-tag button { background: none; border: none; cursor: pointer; color: #065f46; font-size: 14px; line-height: 1; padding: 0; }
   </style>
 </head>
 <body>
@@ -59,34 +72,28 @@
     <!-- Sidebar Filters -->
     <aside class="sidebar">
       <h3>Series</h3>
-      <ul class="filter-list">
-        <li><a href="#" class="active">All Products <span>40</span></a></li>
-        <li><a href="#essential">Essential Series <span>14</span></a></li>
-        <li><a href="#heavyweight">Heavyweight Series <span>10</span></a></li>
-        <li><a href="#oversized">Oversized / Streetwear <span>9</span></a></li>
-        <li><a href="#organic">Organic Collection <span>7</span></a></li>
+      <ul class="filter-list" id="seriesFilters">
+        <li><a class="active" data-filter="series" data-value="all" onclick="applyFilter(this)">All Products <span id="count-all">9</span></a></li>
+        <li><a data-filter="series" data-value="essential" onclick="applyFilter(this)">Essential Series <span>3</span></a></li>
+        <li><a data-filter="series" data-value="heavyweight" onclick="applyFilter(this)">Heavyweight Series <span>3</span></a></li>
+        <li><a data-filter="series" data-value="oversized" onclick="applyFilter(this)">Oversized / Streetwear <span>3</span></a></li>
       </ul>
 
       <h3>Fabric Weight</h3>
       <ul class="filter-list">
-        <li><a href="#">Under 200 GSM <span>8</span></a></li>
-        <li><a href="#">200 – 280 GSM <span>18</span></a></li>
-        <li><a href="#">280 – 320 GSM <span>10</span></a></li>
-        <li><a href="#">320 GSM + <span>4</span></a></li>
+        <li><a data-filter="gsm" data-value="all" onclick="applyFilter(this)">All Weights <span>9</span></a></li>
+        <li><a data-filter="gsm" data-value="under200" onclick="applyFilter(this)">Under 200 GSM <span>1</span></a></li>
+        <li><a data-filter="gsm" data-value="200-280" onclick="applyFilter(this)">200 – 280 GSM <span>4</span></a></li>
+        <li><a data-filter="gsm" data-value="280-320" onclick="applyFilter(this)">280 – 320 GSM <span>3</span></a></li>
+        <li><a data-filter="gsm" data-value="320plus" onclick="applyFilter(this)">320 GSM + <span>1</span></a></li>
       </ul>
 
       <h3>Material</h3>
       <ul class="filter-list">
-        <li><a href="#">100% Cotton <span>24</span></a></li>
-        <li><a href="#">Cotton / Polyester <span>10</span></a></li>
-        <li><a href="#">Organic Cotton <span>6</span></a></li>
-      </ul>
-
-      <h3>Certification</h3>
-      <ul class="filter-list">
-        <li><a href="#">OEKO-TEX® 100 <span>40</span></a></li>
-        <li><a href="#">GOTS Organic <span>7</span></a></li>
-        <li><a href="#">BSCI <span>40</span></a></li>
+        <li><a data-filter="material" data-value="all" onclick="applyFilter(this)">All Materials <span>9</span></a></li>
+        <li><a data-filter="material" data-value="cotton" onclick="applyFilter(this)">100% Cotton <span>7</span></a></li>
+        <li><a data-filter="material" data-value="blend" onclick="applyFilter(this)">Cotton / Polyester <span>1</span></a></li>
+        <li><a data-filter="material" data-value="double" onclick="applyFilter(this)">Double Fabric <span>1</span></a></li>
       </ul>
 
       <div style="margin-top:32px;padding:20px;background:var(--primary-light);border-radius:12px;border:1px solid #a7f3d0;">
@@ -95,216 +102,255 @@
       </div>
     </aside>
 
-    <!-- Main Grid -->
+    <!-- Main Content -->
     <main>
+      <!-- Top Tabs -->
       <div class="catalog-tabs">
-        <a href="#" class="catalog-tab active">All</a>
-        <a href="#essential" class="catalog-tab">Essential</a>
-        <a href="#heavyweight" class="catalog-tab">Heavyweight</a>
-        <a href="#oversized" class="catalog-tab">Oversized</a>
-        <a href="#organic" class="catalog-tab">Organic</a>
+        <button class="catalog-tab active" data-filter="series" data-value="all" onclick="applyFilter(this)">All</button>
+        <button class="catalog-tab" data-filter="series" data-value="essential" onclick="applyFilter(this)">Essential</button>
+        <button class="catalog-tab" data-filter="series" data-value="heavyweight" onclick="applyFilter(this)">Heavyweight</button>
+        <button class="catalog-tab" data-filter="series" data-value="oversized" onclick="applyFilter(this)">Oversized</button>
       </div>
 
+      <!-- Active Filters -->
+      <div class="active-filters" id="activeFilters"></div>
+
+      <!-- Count + Sort -->
       <div class="catalog-header">
-        <span class="catalog-count">Showing <strong>12</strong> of 40 products</span>
-        <select class="sort-select">
-          <option>Sort: Best Selling</option>
-          <option>Price: Low to High</option>
-          <option>Price: High to Low</option>
-          <option>Newest First</option>
+        <span class="catalog-count">Showing <strong id="visibleCount">9</strong> products</span>
+        <select class="sort-select" onchange="sortProducts(this.value)">
+          <option value="default">Sort: Best Selling</option>
+          <option value="price-asc">Price: Low to High</option>
+          <option value="price-desc">Price: High to Low</option>
+          <option value="gsm-asc">GSM: Light to Heavy</option>
+          <option value="gsm-desc">GSM: Heavy to Light</option>
         </select>
       </div>
 
-      <!-- Essential Series -->
-      <h2 id="essential" style="font-size:20px;font-weight:900;margin-bottom:24px;padding-top:8px;">Essential Series</h2>
-      <div class="catalog-grid" style="margin-bottom:56px;">
-        <a href="product-detail.html" class="product-card reveal">
-          <div class="product-thumb">
-            <img src="https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&w=600&q=80" alt="SH-101">
-            <span class="product-badge badge-hot">Best Seller</span>
-          </div>
-          <div class="product-colors">
-            <div class="color-dot" style="background:#fff;"></div>
-            <div class="color-dot" style="background:#0a0a0a;"></div>
-            <div class="color-dot" style="background:#1e3a5f;"></div>
-            <div class="color-dot" style="background:#6b7280;"></div>
-            <div class="color-dot" style="background:#dc2626;"></div>
-            <span style="font-size:11px;color:var(--muted);margin-left:4px;">+24</span>
-          </div>
-          <div class="product-name">SH-101 · Essential Crew Tee</div>
-          <div class="product-specs-pills">
-            <span class="spec-pill">200 GSM</span>
-            <span class="spec-pill">32S Cotton</span>
-            <span class="spec-pill green">OEKO-TEX®</span>
-          </div>
-          <div class="product-price">$2.50 – $4.50 / pc &nbsp;<span style="font-size:11px;color:var(--muted);font-weight:500;">MOQ 100</span></div>
-        </a>
-        <a href="product-detail.html" class="product-card reveal reveal-delay-1">
-          <div class="product-thumb">
-            <img src="https://images.unsplash.com/photo-1576566588028-4147f3842f27?auto=format&fit=crop&w=600&q=80" alt="SH-102">
-            <span class="product-badge badge-new">New</span>
-          </div>
-          <div class="product-colors">
-            <div class="color-dot" style="background:#fff;"></div>
-            <div class="color-dot" style="background:#0a0a0a;"></div>
-            <div class="color-dot" style="background:#f59e0b;"></div>
-            <div class="color-dot" style="background:#16a34a;"></div>
-            <span style="font-size:11px;color:var(--muted);margin-left:4px;">+18</span>
-          </div>
-          <div class="product-name">SH-102 · Slim Fit V-Neck Tee</div>
-          <div class="product-specs-pills">
-            <span class="spec-pill">180 GSM</span>
-            <span class="spec-pill">40S Combed</span>
-            <span class="spec-pill green">OEKO-TEX®</span>
-          </div>
-          <div class="product-price">$2.80 – $4.80 / pc &nbsp;<span style="font-size:11px;color:var(--muted);font-weight:500;">MOQ 100</span></div>
-        </a>
-        <a href="product-detail.html" class="product-card reveal reveal-delay-2">
-          <div class="product-thumb">
-            <img src="https://images.unsplash.com/photo-1503341504253-dff4815485f1?auto=format&fit=crop&w=600&q=80" alt="SH-103">
-          </div>
-          <div class="product-colors">
-            <div class="color-dot" style="background:#fff;"></div>
-            <div class="color-dot" style="background:#0a0a0a;"></div>
-            <div class="color-dot" style="background:#be185d;"></div>
-            <span style="font-size:11px;color:var(--muted);margin-left:4px;">+12</span>
-          </div>
-          <div class="product-name">SH-103 · Longline Extended Tee</div>
-          <div class="product-specs-pills">
-            <span class="spec-pill">220 GSM</span>
-            <span class="spec-pill">30S Cotton</span>
-            <span class="spec-pill green">OEKO-TEX®</span>
-          </div>
-          <div class="product-price">$3.20 – $5.50 / pc &nbsp;<span style="font-size:11px;color:var(--muted);font-weight:500;">MOQ 100</span></div>
-        </a>
+      <!-- Empty State -->
+      <div class="empty-state" id="emptyState">
+        <i class="fas fa-search"></i>
+        <h3 style="font-size:18px;font-weight:800;margin-bottom:8px;">No products match your filters</h3>
+        <p style="font-size:14px;">Try removing a filter or <a href="#" onclick="resetFilters();return false;" style="color:var(--primary);font-weight:700;">view all products</a>.</p>
       </div>
 
-      <!-- Heavyweight Series -->
-      <h2 id="heavyweight" style="font-size:20px;font-weight:900;margin-bottom:24px;">Heavyweight Series</h2>
-      <div class="catalog-grid" style="margin-bottom:56px;">
-        <a href="product-detail.html" class="product-card reveal">
-          <div class="product-thumb">
-            <img src="https://images.unsplash.com/photo-1583743814966-8936f5b7be1a?auto=format&fit=crop&w=600&q=80" alt="SH-204">
-            <span class="product-badge badge-hot">Top Pick</span>
-          </div>
-          <div class="product-colors">
-            <div class="color-dot" style="background:#0a0a0a;"></div>
-            <div class="color-dot" style="background:#fff;"></div>
-            <div class="color-dot" style="background:#78350f;"></div>
-            <div class="color-dot" style="background:#064e3b;"></div>
-            <span style="font-size:11px;color:var(--muted);margin-left:4px;">+16</span>
-          </div>
-          <div class="product-name">SH-204 · Heavyweight Box Tee</div>
-          <div class="product-specs-pills">
-            <span class="spec-pill">320 GSM</span>
-            <span class="spec-pill">20S Ring-Spun</span>
-            <span class="spec-pill green">OEKO-TEX®</span>
-          </div>
-          <div class="product-price">$4.20 – $7.80 / pc &nbsp;<span style="font-size:11px;color:var(--muted);font-weight:500;">MOQ 100</span></div>
-        </a>
-        <a href="product-detail.html" class="product-card reveal reveal-delay-1">
-          <div class="product-thumb">
-            <img src="https://images.unsplash.com/photo-1586790170083-2f9ceadc732d?auto=format&fit=crop&w=600&q=80" alt="SH-205">
-          </div>
-          <div class="product-colors">
-            <div class="color-dot" style="background:#0a0a0a;"></div>
-            <div class="color-dot" style="background:#1e293b;"></div>
-            <div class="color-dot" style="background:#7f1d1d;"></div>
-            <span style="font-size:11px;color:var(--muted);margin-left:4px;">+10</span>
-          </div>
-          <div class="product-name">SH-205 · Super Heavy Boxy Tee</div>
-          <div class="product-specs-pills">
-            <span class="spec-pill">380 GSM</span>
-            <span class="spec-pill">16S Fleece Cotton</span>
-            <span class="spec-pill green">OEKO-TEX®</span>
-          </div>
-          <div class="product-price">$6.50 – $11.00 / pc &nbsp;<span style="font-size:11px;color:var(--muted);font-weight:500;">MOQ 50</span></div>
-        </a>
-        <a href="product-detail.html" class="product-card reveal reveal-delay-2">
-          <div class="product-thumb">
-            <img src="https://images.unsplash.com/photo-1489987707025-afc232f7ea0f?auto=format&fit=crop&w=600&q=80" alt="SH-206">
-          </div>
-          <div class="product-colors">
-            <div class="color-dot" style="background:#fff;"></div>
-            <div class="color-dot" style="background:#0a0a0a;"></div>
-            <div class="color-dot" style="background:#6b7280;"></div>
-            <div class="color-dot" style="background:#92400e;"></div>
-            <span style="font-size:11px;color:var(--muted);margin-left:4px;">+14</span>
-          </div>
-          <div class="product-name">SH-206 · Vintage Washed Heavy Tee</div>
-          <div class="product-specs-pills">
-            <span class="spec-pill">300 GSM</span>
-            <span class="spec-pill">Acid Washed</span>
-            <span class="spec-pill green">OEKO-TEX®</span>
-          </div>
-          <div class="product-price">$5.50 – $9.20 / pc &nbsp;<span style="font-size:11px;color:var(--muted);font-weight:500;">MOQ 100</span></div>
-        </a>
+      <!-- === Essential Series === -->
+      <div class="section-block" id="section-essential" data-series="essential">
+        <div class="section-label">Essential Series</div>
+        <div class="catalog-grid">
+
+          <a href="product-detail.html" class="product-card"
+             data-series="essential" data-gsm="200" data-material="cotton" data-price="2.50">
+            <div class="product-thumb">
+              <img src="https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&w=600&q=80" alt="SH-101">
+              <span class="product-badge badge-hot">Best Seller</span>
+            </div>
+            <div class="product-colors">
+              <div class="color-dot" style="background:#fff;"></div>
+              <div class="color-dot" style="background:#0a0a0a;"></div>
+              <div class="color-dot" style="background:#1e3a5f;"></div>
+              <div class="color-dot" style="background:#6b7280;"></div>
+              <div class="color-dot" style="background:#dc2626;"></div>
+              <span style="font-size:11px;color:var(--muted);margin-left:4px;">+24</span>
+            </div>
+            <div class="product-name">SH-101 · Essential Crew Tee</div>
+            <div class="product-specs-pills">
+              <span class="spec-pill">200 GSM</span>
+              <span class="spec-pill">32S Cotton</span>
+              <span class="spec-pill green">OEKO-TEX®</span>
+            </div>
+            <div class="product-price">$2.50 – $4.50 / pc &nbsp;<span style="font-size:11px;color:var(--muted);font-weight:500;">MOQ 100</span></div>
+          </a>
+
+          <a href="product-detail.html" class="product-card"
+             data-series="essential" data-gsm="180" data-material="cotton" data-price="2.80">
+            <div class="product-thumb">
+              <img src="https://images.unsplash.com/photo-1576566588028-4147f3842f27?auto=format&fit=crop&w=600&q=80" alt="SH-102">
+              <span class="product-badge badge-new">New</span>
+            </div>
+            <div class="product-colors">
+              <div class="color-dot" style="background:#fff;"></div>
+              <div class="color-dot" style="background:#0a0a0a;"></div>
+              <div class="color-dot" style="background:#f59e0b;"></div>
+              <div class="color-dot" style="background:#16a34a;"></div>
+              <span style="font-size:11px;color:var(--muted);margin-left:4px;">+18</span>
+            </div>
+            <div class="product-name">SH-102 · Slim Fit V-Neck Tee</div>
+            <div class="product-specs-pills">
+              <span class="spec-pill">180 GSM</span>
+              <span class="spec-pill">40S Combed</span>
+              <span class="spec-pill green">OEKO-TEX®</span>
+            </div>
+            <div class="product-price">$2.80 – $4.80 / pc &nbsp;<span style="font-size:11px;color:var(--muted);font-weight:500;">MOQ 100</span></div>
+          </a>
+
+          <a href="product-detail.html" class="product-card"
+             data-series="essential" data-gsm="220" data-material="cotton" data-price="3.20">
+            <div class="product-thumb">
+              <img src="https://images.unsplash.com/photo-1503341504253-dff4815485f1?auto=format&fit=crop&w=600&q=80" alt="SH-103">
+            </div>
+            <div class="product-colors">
+              <div class="color-dot" style="background:#fff;"></div>
+              <div class="color-dot" style="background:#0a0a0a;"></div>
+              <div class="color-dot" style="background:#be185d;"></div>
+              <span style="font-size:11px;color:var(--muted);margin-left:4px;">+12</span>
+            </div>
+            <div class="product-name">SH-103 · Longline Extended Tee</div>
+            <div class="product-specs-pills">
+              <span class="spec-pill">220 GSM</span>
+              <span class="spec-pill">30S Cotton</span>
+              <span class="spec-pill green">OEKO-TEX®</span>
+            </div>
+            <div class="product-price">$3.20 – $5.50 / pc &nbsp;<span style="font-size:11px;color:var(--muted);font-weight:500;">MOQ 100</span></div>
+          </a>
+
+        </div>
       </div>
 
-      <!-- Oversized -->
-      <h2 id="oversized" style="font-size:20px;font-weight:900;margin-bottom:24px;">Oversized / Streetwear</h2>
-      <div class="catalog-grid" style="margin-bottom:56px;">
-        <a href="product-detail.html" class="product-card reveal">
-          <div class="product-thumb">
-            <img src="https://images.unsplash.com/photo-1618354691373-d851c5c3a990?auto=format&fit=crop&w=600&q=80" alt="SH-305">
-            <span class="product-badge badge-hot">Trending</span>
-          </div>
-          <div class="product-colors">
-            <div class="color-dot" style="background:#0a0a0a;"></div>
-            <div class="color-dot" style="background:#fff;"></div>
-            <div class="color-dot" style="background:#9ca3af;"></div>
-            <div class="color-dot" style="background:#7c3aed;"></div>
-            <span style="font-size:11px;color:var(--muted);margin-left:4px;">+20</span>
-          </div>
-          <div class="product-name">SH-305 · Drop Shoulder Oversized</div>
-          <div class="product-specs-pills">
-            <span class="spec-pill">280 GSM</span>
-            <span class="spec-pill">Cotton / Poly</span>
-            <span class="spec-pill green">OEKO-TEX®</span>
-          </div>
-          <div class="product-price">$3.80 – $6.50 / pc &nbsp;<span style="font-size:11px;color:var(--muted);font-weight:500;">MOQ 100</span></div>
-        </a>
-        <a href="product-detail.html" class="product-card reveal reveal-delay-1">
-          <div class="product-thumb">
-            <img src="https://images.unsplash.com/photo-1596755094514-f87e34085b2c?auto=format&fit=crop&w=600&q=80" alt="SH-306">
-          </div>
-          <div class="product-colors">
-            <div class="color-dot" style="background:#0a0a0a;"></div>
-            <div class="color-dot" style="background:#78350f;"></div>
-            <div class="color-dot" style="background:#1e3a5f;"></div>
-            <span style="font-size:11px;color:var(--muted);margin-left:4px;">+12</span>
-          </div>
-          <div class="product-name">SH-306 · Longline Streetwear Tee</div>
-          <div class="product-specs-pills">
-            <span class="spec-pill">260 GSM</span>
-            <span class="spec-pill">32S Cotton</span>
-            <span class="spec-pill green">OEKO-TEX®</span>
-          </div>
-          <div class="product-price">$4.50 – $7.20 / pc &nbsp;<span style="font-size:11px;color:var(--muted);font-weight:500;">MOQ 100</span></div>
-        </a>
-        <a href="product-detail.html" class="product-card reveal reveal-delay-2">
-          <div class="product-thumb">
-            <img src="https://images.unsplash.com/photo-1562157873-818bc0726f68?auto=format&fit=crop&w=600&q=80" alt="SH-307">
-            <span class="product-badge badge-new">New</span>
-          </div>
-          <div class="product-colors">
-            <div class="color-dot" style="background:#fff;"></div>
-            <div class="color-dot" style="background:#0a0a0a;"></div>
-            <div class="color-dot" style="background:#0891b2;"></div>
-            <span style="font-size:11px;color:var(--muted);margin-left:4px;">+8</span>
-          </div>
-          <div class="product-name">SH-307 · Double Layer Illusion Tee</div>
-          <div class="product-specs-pills">
-            <span class="spec-pill">300 GSM</span>
-            <span class="spec-pill">Double Fabric</span>
-            <span class="spec-pill green">OEKO-TEX®</span>
-          </div>
-          <div class="product-price">$6.80 – $10.50 / pc &nbsp;<span style="font-size:11px;color:var(--muted);font-weight:500;">MOQ 50</span></div>
-        </a>
+      <!-- === Heavyweight Series === -->
+      <div class="section-block" id="section-heavyweight" data-series="heavyweight">
+        <div class="section-label">Heavyweight Series</div>
+        <div class="catalog-grid">
+
+          <a href="product-detail.html" class="product-card"
+             data-series="heavyweight" data-gsm="320" data-material="cotton" data-price="4.20">
+            <div class="product-thumb">
+              <img src="https://images.unsplash.com/photo-1583743814966-8936f5b7be1a?auto=format&fit=crop&w=600&q=80" alt="SH-204">
+              <span class="product-badge badge-hot">Top Pick</span>
+            </div>
+            <div class="product-colors">
+              <div class="color-dot" style="background:#0a0a0a;"></div>
+              <div class="color-dot" style="background:#fff;"></div>
+              <div class="color-dot" style="background:#78350f;"></div>
+              <div class="color-dot" style="background:#064e3b;"></div>
+              <span style="font-size:11px;color:var(--muted);margin-left:4px;">+16</span>
+            </div>
+            <div class="product-name">SH-204 · Heavyweight Box Tee</div>
+            <div class="product-specs-pills">
+              <span class="spec-pill">320 GSM</span>
+              <span class="spec-pill">20S Ring-Spun</span>
+              <span class="spec-pill green">OEKO-TEX®</span>
+            </div>
+            <div class="product-price">$4.20 – $7.80 / pc &nbsp;<span style="font-size:11px;color:var(--muted);font-weight:500;">MOQ 100</span></div>
+          </a>
+
+          <a href="product-detail.html" class="product-card"
+             data-series="heavyweight" data-gsm="380" data-material="cotton" data-price="6.50">
+            <div class="product-thumb">
+              <img src="https://images.unsplash.com/photo-1586790170083-2f9ceadc732d?auto=format&fit=crop&w=600&q=80" alt="SH-205">
+            </div>
+            <div class="product-colors">
+              <div class="color-dot" style="background:#0a0a0a;"></div>
+              <div class="color-dot" style="background:#1e293b;"></div>
+              <div class="color-dot" style="background:#7f1d1d;"></div>
+              <span style="font-size:11px;color:var(--muted);margin-left:4px;">+10</span>
+            </div>
+            <div class="product-name">SH-205 · Super Heavy Boxy Tee</div>
+            <div class="product-specs-pills">
+              <span class="spec-pill">380 GSM</span>
+              <span class="spec-pill">16S Fleece Cotton</span>
+              <span class="spec-pill green">OEKO-TEX®</span>
+            </div>
+            <div class="product-price">$6.50 – $11.00 / pc &nbsp;<span style="font-size:11px;color:var(--muted);font-weight:500;">MOQ 50</span></div>
+          </a>
+
+          <a href="product-detail.html" class="product-card"
+             data-series="heavyweight" data-gsm="300" data-material="cotton" data-price="5.50">
+            <div class="product-thumb">
+              <img src="https://images.unsplash.com/photo-1489987707025-afc232f7ea0f?auto=format&fit=crop&w=600&q=80" alt="SH-206">
+            </div>
+            <div class="product-colors">
+              <div class="color-dot" style="background:#fff;"></div>
+              <div class="color-dot" style="background:#0a0a0a;"></div>
+              <div class="color-dot" style="background:#6b7280;"></div>
+              <div class="color-dot" style="background:#92400e;"></div>
+              <span style="font-size:11px;color:var(--muted);margin-left:4px;">+14</span>
+            </div>
+            <div class="product-name">SH-206 · Vintage Washed Heavy Tee</div>
+            <div class="product-specs-pills">
+              <span class="spec-pill">300 GSM</span>
+              <span class="spec-pill">Acid Washed</span>
+              <span class="spec-pill green">OEKO-TEX®</span>
+            </div>
+            <div class="product-price">$5.50 – $9.20 / pc &nbsp;<span style="font-size:11px;color:var(--muted);font-weight:500;">MOQ 100</span></div>
+          </a>
+
+        </div>
       </div>
 
-      <!-- CTA inside catalog -->
-      <div style="background:var(--dark);border-radius:16px;padding:40px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:20px;" class="reveal">
+      <!-- === Oversized Series === -->
+      <div class="section-block" id="section-oversized" data-series="oversized">
+        <div class="section-label">Oversized / Streetwear</div>
+        <div class="catalog-grid">
+
+          <a href="product-detail.html" class="product-card"
+             data-series="oversized" data-gsm="280" data-material="blend" data-price="3.80">
+            <div class="product-thumb">
+              <img src="https://images.unsplash.com/photo-1618354691373-d851c5c3a990?auto=format&fit=crop&w=600&q=80" alt="SH-305">
+              <span class="product-badge badge-hot">Trending</span>
+            </div>
+            <div class="product-colors">
+              <div class="color-dot" style="background:#0a0a0a;"></div>
+              <div class="color-dot" style="background:#fff;"></div>
+              <div class="color-dot" style="background:#9ca3af;"></div>
+              <div class="color-dot" style="background:#7c3aed;"></div>
+              <span style="font-size:11px;color:var(--muted);margin-left:4px;">+20</span>
+            </div>
+            <div class="product-name">SH-305 · Drop Shoulder Oversized</div>
+            <div class="product-specs-pills">
+              <span class="spec-pill">280 GSM</span>
+              <span class="spec-pill">Cotton / Poly</span>
+              <span class="spec-pill green">OEKO-TEX®</span>
+            </div>
+            <div class="product-price">$3.80 – $6.50 / pc &nbsp;<span style="font-size:11px;color:var(--muted);font-weight:500;">MOQ 100</span></div>
+          </a>
+
+          <a href="product-detail.html" class="product-card"
+             data-series="oversized" data-gsm="260" data-material="cotton" data-price="4.50">
+            <div class="product-thumb">
+              <img src="https://images.unsplash.com/photo-1596755094514-f87e34085b2c?auto=format&fit=crop&w=600&q=80" alt="SH-306">
+            </div>
+            <div class="product-colors">
+              <div class="color-dot" style="background:#0a0a0a;"></div>
+              <div class="color-dot" style="background:#78350f;"></div>
+              <div class="color-dot" style="background:#1e3a5f;"></div>
+              <span style="font-size:11px;color:var(--muted);margin-left:4px;">+12</span>
+            </div>
+            <div class="product-name">SH-306 · Longline Streetwear Tee</div>
+            <div class="product-specs-pills">
+              <span class="spec-pill">260 GSM</span>
+              <span class="spec-pill">32S Cotton</span>
+              <span class="spec-pill green">OEKO-TEX®</span>
+            </div>
+            <div class="product-price">$4.50 – $7.20 / pc &nbsp;<span style="font-size:11px;color:var(--muted);font-weight:500;">MOQ 100</span></div>
+          </a>
+
+          <a href="product-detail.html" class="product-card"
+             data-series="oversized" data-gsm="300" data-material="double" data-price="6.80">
+            <div class="product-thumb">
+              <img src="https://images.unsplash.com/photo-1562157873-818bc0726f68?auto=format&fit=crop&w=600&q=80" alt="SH-307">
+              <span class="product-badge badge-new">New</span>
+            </div>
+            <div class="product-colors">
+              <div class="color-dot" style="background:#fff;"></div>
+              <div class="color-dot" style="background:#0a0a0a;"></div>
+              <div class="color-dot" style="background:#0891b2;"></div>
+              <span style="font-size:11px;color:var(--muted);margin-left:4px;">+8</span>
+            </div>
+            <div class="product-name">SH-307 · Double Layer Illusion Tee</div>
+            <div class="product-specs-pills">
+              <span class="spec-pill">300 GSM</span>
+              <span class="spec-pill">Double Fabric</span>
+              <span class="spec-pill green">OEKO-TEX®</span>
+            </div>
+            <div class="product-price">$6.80 – $10.50 / pc &nbsp;<span style="font-size:11px;color:var(--muted);font-weight:500;">MOQ 50</span></div>
+          </a>
+
+        </div>
+      </div>
+
+      <!-- CTA -->
+      <div style="background:var(--dark);border-radius:16px;padding:40px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:20px;">
         <div>
           <h3 style="color:#fff;font-size:20px;font-weight:900;margin-bottom:8px;">Can't find your spec?</h3>
           <p style="color:rgba(255,255,255,.6);font-size:14px;">We develop custom fabrics, weights, and constructions. Tell us what you need.</p>
@@ -316,6 +362,131 @@
 </div>
 
 <div id="footer-placeholder"></div>
+
+<script>
+// ── Filter State ──────────────────────────────────────────
+const state = { series: 'all', gsm: 'all', material: 'all' };
+
+const gsmRanges = {
+  'all':     [0, 9999],
+  'under200':[0, 199],
+  '200-280': [200, 280],
+  '280-320': [281, 320],
+  '320plus': [321, 9999]
+};
+
+function applyFilter(el) {
+  const filterType = el.dataset.filter;
+  const value = el.dataset.value;
+  state[filterType] = value;
+
+  // Sync sidebar + tabs for series
+  if (filterType === 'series') {
+    document.querySelectorAll('[data-filter="series"]').forEach(b => {
+      b.classList.toggle('active', b.dataset.value === value);
+    });
+  } else {
+    // Sidebar only for gsm/material
+    document.querySelectorAll(`[data-filter="${filterType}"]`).forEach(b => {
+      b.classList.toggle('active', b.dataset.value === value);
+    });
+  }
+
+  runFilter();
+}
+
+function runFilter() {
+  const cards = document.querySelectorAll('.product-card');
+  const sections = document.querySelectorAll('.section-block');
+  const [gsmMin, gsmMax] = gsmRanges[state.gsm];
+  let visible = 0;
+
+  cards.forEach(card => {
+    const series   = card.dataset.series;
+    const gsm      = parseInt(card.dataset.gsm);
+    const material = card.dataset.material;
+
+    const matchSeries   = state.series === 'all' || series === state.series;
+    const matchGsm      = gsm >= gsmMin && gsm <= gsmMax;
+    const matchMaterial = state.material === 'all' || material === state.material;
+
+    const show = matchSeries && matchGsm && matchMaterial;
+    card.classList.toggle('hidden', !show);
+    if (show) visible++;
+  });
+
+  // Show/hide section headers based on whether any card in them is visible
+  sections.forEach(section => {
+    const anyVisible = section.querySelectorAll('.product-card:not(.hidden)').length > 0;
+    section.classList.toggle('hidden', !anyVisible);
+  });
+
+  document.getElementById('visibleCount').textContent = visible;
+  document.getElementById('emptyState').classList.toggle('visible', visible === 0);
+
+  updateFilterTags();
+}
+
+function updateFilterTags() {
+  const container = document.getElementById('activeFilters');
+  container.innerHTML = '';
+
+  const labels = {
+    series:   { essential:'Essential Series', heavyweight:'Heavyweight Series', oversized:'Oversized / Streetwear' },
+    gsm:      { under200:'Under 200 GSM', '200-280':'200–280 GSM', '280-320':'280–320 GSM', '320plus':'320 GSM+' },
+    material: { cotton:'100% Cotton', blend:'Cotton / Poly', double:'Double Fabric' }
+  };
+
+  Object.entries(state).forEach(([type, val]) => {
+    if (val === 'all') return;
+    const label = labels[type]?.[val] || val;
+    const tag = document.createElement('div');
+    tag.className = 'filter-tag';
+    tag.innerHTML = `${label} <button onclick="clearFilter('${type}')" title="Remove">×</button>`;
+    container.appendChild(tag);
+  });
+}
+
+function clearFilter(type) {
+  state[type] = 'all';
+  document.querySelectorAll(`[data-filter="${type}"]`).forEach(b => {
+    b.classList.toggle('active', b.dataset.value === 'all');
+  });
+  runFilter();
+}
+
+function resetFilters() {
+  state.series = 'all'; state.gsm = 'all'; state.material = 'all';
+  document.querySelectorAll('[data-filter]').forEach(b => {
+    b.classList.toggle('active', b.dataset.value === 'all');
+  });
+  runFilter();
+}
+
+function sortProducts(mode) {
+  const sections = document.querySelectorAll('.section-block');
+  sections.forEach(section => {
+    const grid = section.querySelector('.catalog-grid');
+    const cards = Array.from(grid.querySelectorAll('.product-card'));
+    cards.sort((a, b) => {
+      const pa = parseFloat(a.dataset.price);
+      const pb = parseFloat(b.dataset.price);
+      const ga = parseInt(a.dataset.gsm);
+      const gb = parseInt(b.dataset.gsm);
+      if (mode === 'price-asc')  return pa - pb;
+      if (mode === 'price-desc') return pb - pa;
+      if (mode === 'gsm-asc')    return ga - gb;
+      if (mode === 'gsm-desc')   return gb - ga;
+      return 0;
+    });
+    cards.forEach(c => grid.appendChild(c));
+  });
+}
+
+// Init
+runFilter();
+</script>
+
 <script src="assets/js/main.js"></script>
 </body>
 </html>
